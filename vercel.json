@@ -1,21 +1,32 @@
 {
   "version": 2,
+  "buildCommand": "npm run vercel-build",
   "builds": [
     {
       "src": "dist/server/node-build.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["dist/server/**/*"]
+        "includeFiles": ["dist/server/**/*", "server/data/**/*.json"]
       }
     },
     {
-      "src": "dist/spa/index.html",
+      "src": "dist/spa",
       "use": "@vercel/static"
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ],
-  "buildCommand": "npm run vercel-build"
+    {
+      "src": "/api/(.*)",
+      "dest": "/dist/server/node-build.js",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+    },
+    {
+      "src": "/(.*\\.(?:js|css|svg|png|jpg|jpeg|gif|woff|woff2|ttf|eot)$)",
+      "dest": "/dist/spa/$1"
+    },
+    {
+      "src": "^/((?!api).*)$",
+      "dest": "/dist/spa/index.html"
+    }
+  ]
 }

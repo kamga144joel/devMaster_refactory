@@ -3,9 +3,6 @@ import { createServer } from "./index";
 import * as express from "express";
 
 const app = createServer();
-const port = process.env.PORT || 3000;
-
-// In production, serve the built SPA files
 const __dirname = import.meta.dirname;
 const distPath = path.join(__dirname, "../spa");
 
@@ -22,19 +19,26 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
-app.listen(port, () => {
-  console.log(`🚀 Fusion Starter server running on port ${port}`);
-  console.log(`📱 Frontend: http://localhost:${port}`);
-  console.log(`🔧 API: http://localhost:${port}/api`);
-});
+// Export for Vercel serverless functions
+export default app;
 
-// Graceful shutdown
-process.on("SIGTERM", () => {
-  console.log("🛑 Received SIGTERM, shutting down gracefully");
-  process.exit(0);
-});
+// Only listen in development (local server)
+if (process.env.NODE_ENV !== "production" && typeof process.env.VERCEL === "undefined") {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`🚀 Fusion Starter server running on port ${port}`);
+    console.log(`📱 Frontend: http://localhost:${port}`);
+    console.log(`🔧 API: http://localhost:${port}/api`);
+  });
 
-process.on("SIGINT", () => {
-  console.log("🛑 Received SIGINT, shutting down gracefully");
-  process.exit(0);
-});
+  // Graceful shutdown
+  process.on("SIGTERM", () => {
+    console.log("🛑 Received SIGTERM, shutting down gracefully");
+    process.exit(0);
+  });
+
+  process.on("SIGINT", () => {
+    console.log("🛑 Received SIGINT, shutting down gracefully");
+    process.exit(0);
+  });
+}

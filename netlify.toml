@@ -1,15 +1,71 @@
 [build]
   command = "npm run build:client:netlify"         # Build uniquement le frontend avec mode production
   publish = "dist/spa"                             # Le dossier généré par Vite pour le frontend
+  functions = "netlify/functions"                  # Dossier des fonctions Netlify
 
 # Configuration pour le serveur Node.js
 [build.environment]
   NODE_VERSION = "20"
 
-# Redirections pour l'API vers le backend Vercel
+# Redirections pour l'API vers les fonctions Netlify spécifiques
+[[redirects]]
+  from = "/api/chat"
+  to = "/.netlify/functions/chat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/quiz"
+  to = "/.netlify/functions/quiz"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/exercise"
+  to = "/.netlify/functions/exercise"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/glossary"
+  to = "/.netlify/functions/glossary"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/send-welcome-mail"
+  to = "/.netlify/functions/send-welcome-mail"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/send-mailjet"
+  to = "/.netlify/functions/send-mailjet"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/image"
+  to = "/.netlify/functions/image"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/mentor"
+  to = "/.netlify/functions/mentor"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+  force = true
+
+# Catch-all for other API routes (if needed)
 [[redirects]]
   from = "/api/*"
-  to = "https://devmaster-b0lvymk9u-kamgajoel144-5203s-projects.vercel.app/api/:splat"
+  to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
 
