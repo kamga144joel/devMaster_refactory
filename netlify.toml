@@ -11,7 +11,7 @@
   from = "/api/*"
   to = "https://devmaster-b0lvymk9u-kamgajoel144-5203s-projects.vercel.app/api/:splat"
   status = 200
-  force = false
+  force = true
 
 # Redirection SPA (ex: Vue Router / React Router)
 [[redirects]]
