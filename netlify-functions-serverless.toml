@@ -1,0 +1,24 @@
+[build]
+  command = "npm run build:client && npm run build:server"
+  publish = "dist/spa"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Configuration des fonctions
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["server/data/**/*.json"]
+
+# Redirections API vers les fonctions serverless
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/server/:splat"
+  status = 200
+
+# Redirection SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

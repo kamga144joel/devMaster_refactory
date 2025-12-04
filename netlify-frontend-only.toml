@@ -1,0 +1,28 @@
+[build]
+  command = "npm run build:client"
+  publish = "dist/spa"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Si vous utilisez un backend externe (Heroku, Vercel, etc.)
+[[redirects]]
+  from = "/api/*"
+  to = "https://votre-backend-url.com/api/:splat"
+  status = 200
+  force = false
+
+# Redirection SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# En-têtes CORS pour l'API externe
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
