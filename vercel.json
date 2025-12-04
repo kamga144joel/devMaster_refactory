@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/server/node-build.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["dist/server/**/*"]
+      }
+    },
+    {
+      "src": "dist/spa/index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ],
+  "buildCommand": "npm run vercel-build"
+}

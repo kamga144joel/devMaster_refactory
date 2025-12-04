@@ -1,0 +1,258 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap");
+@import './styles/common.css';
+@import './styles/pages.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+   * A different format will require also updating the theme in tailwind.config.ts.
+  */
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --brand: 258 88% 60%;
+    --primary: var(--brand);
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+
+    --accent: 220 14% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: var(--brand);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: var(--brand);
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 258 88% 60%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --brand: 258 88% 68%;
+    --primary: var(--brand);
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 224 14% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 224 14% 12%;
+    --muted-foreground: 220 9% 70%;
+
+    --accent: 224 14% 12%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 224 14% 14%;
+    --input: 224 14% 14%;
+    --ring: var(--brand);
+    --sidebar-background: 222 47% 6%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: var(--brand);
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 224 14% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 224 14% 14%;
+    --sidebar-ring: 258 88% 68%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body, #root {
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --content-max-width: min(1100px, 100% - 2rem);
+    --page-gutter: 1rem;
+    --base-size: 16px;
+    --rhythm: 1.6;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Conteneur principal */
+  .container {
+    width: 100%;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Correction pour les éléments qui pourraient déborder */
+  pre, code, .code-block {
+    max-width: 100%;
+    overflow-x: auto;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+
+  /* Correction pour les tableaux */
+  table {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Headings use Poppins for a modern, professional look */
+  h1, h2, h3, h4, h5 {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+    scroll-margin-top: 80px;
+  }
+
+  /* Code uses JetBrains Mono for best developer experience */
+  pre, code { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace; font-size: 0.9rem; }
+
+  /* Smooth scrolling and transitions throughout */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Better selection highlight */
+  ::selection {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  /* Smooth transitions for interactive elements */
+  button, a, input, textarea, select {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Focus visible states for better accessibility */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Responsive container tweaks */
+  @media (max-width: 640px) {
+    :root { --content-max-width: 100%; --page-gutter: 0.75rem; }
+
+    h1 { font-size: 1.875rem; }
+    h2 { font-size: 1.25rem; }
+  }
+
+  /* Form improvements */
+  input, select, textarea {
+    @apply w-full px-3 py-2 rounded-md border bg-background text-foreground transition-shadow transition-colors duration-150;
+    border-color: hsl(var(--input));
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.06), 0 0 0 4px rgba(124,58,237,0.08);
+    border-color: hsl(var(--ring));
+  }
+  textarea { min-height: 3.5rem; }
+  .form-row { display:flex; gap:0.75rem; align-items:flex-start; }
+  .form-row .col { flex:1; }
+
+  /* Buttons */
+  button { @apply inline-flex items-center gap-2 px-3 py-2 rounded-md; }
+  .btn { @apply inline-flex items-center gap-2 px-3 py-2 text-sm rounded-md; }
+  .btn-primary { @apply bg-primary text-primary-foreground; }
+
+  /* Better touch targets on mobile */
+  @media (max-width: 640px) {
+    button, input, select, textarea { font-size: 15px; }
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: color-mix(in srgb, var(--foreground) 90%, black 10%);
+  }
+  h1 { font-size: 2.25rem; line-height: 1.1; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.125rem; }
+
+  p { margin-bottom: 0.8rem; }
+
+  .container { max-width: var(--content-max-width); padding-left: calc(var(--page-gutter) * 1.5); padding-right: calc(var(--page-gutter) * 1.5); }
+
+  button { @apply rounded-md; }
+  .btn { @apply inline-flex items-center gap-2 px-3 py-2 text-sm rounded-md; }
+  .btn-primary { background-color: hsl(var(--primary)); color: var(--primary-foreground); }
+
+  /* ensure interactive elements are clickable above overlays */
+  button, input, select, textarea { position: relative; z-index: 1; }
+
+  /* more comfortable code blocks */
+  pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace; font-size: 0.85rem; }
+}

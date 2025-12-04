@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="80" viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DevMaster horizontal logo">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="80" rx="14" fill="none" />
+  <g transform="translate(12,10)">
+    <rect x="0" y="0" width="60" height="60" rx="12" fill="url(#g2)" />
+    <path d="M12 18 L30 10 L48 18 L48 42 L30 50 L12 42 Z" fill="#fff" opacity="0.98" transform="translate(0,0)"/>
+  </g>
+  <g transform="translate(88,24)">
+    <text x="0" y="0" font-family="Poppins, Inter, system-ui" font-size="28" font-weight="600" fill="#0b1220">DevMaster</text>
+    <text x="0" y="22" font-family="Inter, system-ui" font-size="12" fill="#6b7280">Learning • Practice • AI Mentor</text>
+  </g>
+</svg>

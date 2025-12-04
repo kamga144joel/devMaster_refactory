@@ -1,0 +1,76 @@
+[build]
+  command = "npm run build:client"         # Assure-toi que ce script existe dans package.json
+  functions = "netlify/functions"          # Dossier des fonctions Netlify
+  publish = "dist/spa"                     # Le dossier généré par Vite ou Quasar (SPA)
+
+[functions]
+  node_bundler = "esbuild"                 # Plus rapide, recommandé
+  # Include data files in the functions bundle
+  included_files = ["server/data/**/*.json"]
+
+# Specific API routes mapped to standalone functions (more reliable than express aggregate)
+[[redirects]]
+  from = "/api/chat"
+  to = "/.netlify/functions/chat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/exercise"
+  to = "/.netlify/functions/exercise"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/glossary"
+  to = "/.netlify/functions/glossary"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/image"
+  to = "/.netlify/functions/image"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/mentor"
+  to = "/.netlify/functions/mentor"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/quiz"
+  to = "/.netlify/functions/quiz"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/send-welcome-mail"
+  to = "/.netlify/functions/send-welcome-mail"
+  status = 200
+  force = true
+
+# Pour les appels API généraux (ex: quiz, course, autres routes via api express)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true                             # Important pour éviter les conflits avec la redirection SPA
+
+# Redirection SPA (ex: Vue Router / React Router)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false                            # false est bien ici (ne doit pas écraser les redirs API)
+
+# En-têtes de sécurité + cache
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "public, max-age=0, must-revalidate"
