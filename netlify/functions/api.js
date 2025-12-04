@@ -1,6 +1,3 @@
-const express = require('express');
-const cors = require('cors');
-
 // Variables hardcoded
 const config = {
   MJ_APIKEY_PUBLIC: 'e162678819818aac742356c0b675b568',
@@ -19,35 +16,59 @@ const config = {
 // Handler pour Netlify Functions
 exports.handler = async (event, context) => {
   try {
-    const app = express();
-    app.use(cors());
-    app.use(express.json());
-    
     // Route de test
-    app.get('/api/ping', (req, res) => {
-      res.json({ message: 'pong from Netlify Functions!' });
-    });
+    if (event.path === '/api/ping' && event.httpMethod === 'GET') {
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+        },
+        body: JSON.stringify({ message: 'pong from Netlify Functions!' })
+      };
+    }
     
     // Route quiz
-    app.post('/api/quiz', (req, res) => {
-      res.json({ 
-        message: 'Quiz endpoint working',
-        data: { question: 'Test question', options: ['A', 'B', 'C'] }
-      });
-    });
+    if (event.path === '/api/quiz' && event.httpMethod === 'POST') {
+      const body = JSON.parse(event.body || '{}');
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+        },
+        body: JSON.stringify({ 
+          message: 'Quiz endpoint working',
+          data: { question: 'Test question', options: ['A', 'B', 'C'] },
+          received: body
+        })
+      };
+    }
     
     // Route chat
-    app.post('/api/chat', (req, res) => {
-      res.json({ 
-        message: 'Chat endpoint working',
-        response: 'Hello from hardcoded backend!'
-      });
-    });
+    if (event.path === '/api/chat' && event.httpMethod === 'POST') {
+      const body = JSON.parse(event.body || '{}');
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+        },
+        body: JSON.stringify({ 
+          message: 'Chat endpoint working',
+          response: 'Hello from hardcoded backend!',
+          received: body
+        })
+      };
+    }
     
-    // Simuler le traitement de la requête
-    const method = event.httpMethod;
-    const path = event.path;
-    
+    // Route par défaut
     return {
       statusCode: 200,
       headers: {
@@ -58,8 +79,8 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         message: 'API Netlify avec hardcoded variables',
-        path: path,
-        method: method,
+        path: event.path,
+        method: event.httpMethod,
         config: { keys: Object.keys(config) }
       })
     };
@@ -67,6 +88,10 @@ exports.handler = async (event, context) => {
   } catch (error) {
     return {
       statusCode: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
       body: JSON.stringify({ error: error.message })
     };
   }
