@@ -14,7 +14,7 @@
     "dev": "vite",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build --emptyOutDir",
-    "build:client:netlify": "vite build --emptyOutDir --mode production",
+    "build:client:netlify": "vite build --emptyOutDir --mode production --config vite.config.netlify.ts",
     "build:server": "vite build --ssr server/node-build.ts --outDir dist/server --config vite.config.combined.ts",
     "postbuild:server": "node -e \"const fs = require('fs'); fs.copyFileSync('dist/server/node-build.js', 'dist/server/server.js')\"",
     "preview": "vite preview",
