@@ -4,7 +4,7 @@
 
 # Configuration pour le serveur Node.js
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
 
 # Redirections pour l'API vers le backend Vercel
 [[redirects]]

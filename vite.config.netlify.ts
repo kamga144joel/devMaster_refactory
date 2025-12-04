@@ -10,12 +10,10 @@ export default defineConfig({
   build: {
     outDir: "dist/spa",
     chunkSizeWarningLimit: 1200,
+    target: 'es2015',
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules/monaco-editor')) return 'vendor_monaco';
-          if (id.includes('node_modules')) return 'vendor';
-        }
+        manualChunks: undefined,
       }
     }
   },
@@ -29,8 +27,5 @@ export default defineConfig({
   define: {
     global: 'globalThis',
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
-  },
-  optimizeDeps: {
-    exclude: ['monaco-editor']
   }
 });
