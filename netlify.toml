@@ -1,12 +1,12 @@
 [build]
-  command = "npm run build:client"         # Build uniquement le frontend
-  publish = "dist/spa"                     # Le dossier généré par Vite pour le frontend
+  command = "npm run build:client:netlify"         # Build uniquement le frontend avec mode production
+  publish = "dist/spa"                             # Le dossier généré par Vite pour le frontend
 
 # Configuration pour le serveur Node.js
 [build.environment]
   NODE_VERSION = "18"
 
-# Redirections pour l'API vers un serveur externe (option 1)
+# Redirections pour l'API vers un serveur externe (à configurer)
 [[redirects]]
   from = "/api/*"
   to = "https://votre-api-server.com/api/:splat"
